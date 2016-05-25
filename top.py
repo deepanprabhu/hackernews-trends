@@ -53,7 +53,7 @@ def stripHTML(str, stripperBackend=0):
 def processHTML(url, str, stripperBackend=0):
 	try:
 		encoding = chardet.detect(str);
-		print encoding['encoding'];
+		#print encoding['encoding'];
 		result = stripHTML(str.decode('utf8'), stripperBackend);
 		return result;
 	except:
@@ -87,7 +87,7 @@ rs = re.compile(r"(https://[^ ]+)");
 rsym = re.compile(r'[^\w]');
 
 count = 1;
-readTotalStories = 10;
+readTotalStories = 5;
 stopwords = get_stop_words();
 totalWordCounter = 0;
 
@@ -106,6 +106,8 @@ for item in items:
 
 		filteredtext = ['']
 
+		importantWords = {}
+
 		for aword in text.split(" "):
 
 			aStrip = aword.strip();
@@ -114,21 +116,20 @@ for item in items:
 
 			afinal = aRemoveSymbols;
 
-			if not afinal in stopwords and afinal != '':
+			if not afinal.lower() in stopwords and afinal != '':
 				filteredtext.append(afinal)
 
 				if not afinal in countWords:
 					countWords[afinal]=1;
 				else:
 					countWords[afinal] = countWords[afinal] + 1;
+				if countWords[afinal] > 1:
+					importantWords[afinal] = countWords[afinal];
 
-		importantWords = {}
-		for key in countWords:
-			if countWords[key] > 1:
-				importantWords[key] = countWords[key];
-				totalWordCounter = totalWordCounter + 1;
-
-		print sorted(importantWords, key=importantWords.get	)
+		listOfTuples = sorted(importantWords.items(), key=operator.itemgetter(1)	,reverse=True)
+		for (word,totalCount) in listOfTuples:
+			if(totalCount > 3):
+				print word;
 		print "_____________________________________________________" + str(count) + "___________________________________________________________________________";
 
 	if count == readTotalStories:
