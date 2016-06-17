@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """Example of Python client calling Knowledge Graph Search API."""
 import json
 import urllib
