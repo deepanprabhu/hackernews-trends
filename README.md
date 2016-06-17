@@ -19,4 +19,6 @@
 
 3) Try to use the freebase RDF dumps
 
+pip install --upgrade google-api-python-client
+
 4) Map to one of the trends topic to find the core trend
