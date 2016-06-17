@@ -4,7 +4,7 @@
 import json
 import urllib
 
-api_key = open('.api_key').read()
+api_key = open('example_api_key').read()
 query = 'Taylor Swift'
 service_url = 'https://kgsearch.googleapis.com/v1/entities:search'
 params = {
